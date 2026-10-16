@@ -31,7 +31,7 @@ const directions = [
     title: 'Начальная подготовка',
     label: 'Первые шаги в спорте',
     text: 'Развитие координации, силы и выносливости, знакомство с основами и ценностями самбо.',
-    image: '/assets/direction-training.jpg',
+    image: '/assets/direction-beginner.jpg',
   },
   {
     title: 'Боевое самбо',

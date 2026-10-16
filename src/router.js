@@ -4,6 +4,7 @@ import NewsArticleView from './views/NewsArticleView.vue'
 import NewsListView from './views/NewsListView.vue'
 import GalleryView from './views/GalleryView.vue'
 import DocumentsView from './views/DocumentsView.vue'
+import DynamicPageView from './views/DynamicPageView.vue'
 
 export default createRouter({
   history: createWebHistory(),
@@ -17,5 +18,6 @@ export default createRouter({
     { path: '/news/:slug', name: 'news-article', component: NewsArticleView },
     { path: '/gallery', name: 'gallery', component: GalleryView },
     { path: '/documents', name: 'documents', component: DocumentsView },
+    { path: '/about/:slug', name: 'about-page', component: DynamicPageView },
   ],
 })

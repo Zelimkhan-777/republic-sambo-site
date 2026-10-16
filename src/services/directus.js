@@ -105,3 +105,50 @@ export async function loadDocuments() {
     return fallback.documents
   }
 }
+
+export async function loadSchoolPages() {
+  if (!client) return fallback.pages
+
+  try {
+    const items = await client.request(readItems('pages', {
+      filter: {
+        status: { _eq: 'published' },
+        navigation_group: { _eq: 'about' },
+        show_in_menu: { _eq: true },
+      },
+      sort: ['sort', 'title'],
+      limit: 100,
+      fields: ['id', 'slug', 'title', 'menu_title', 'excerpt', 'sort'],
+    }))
+    return items.length ? items : fallback.pages
+  } catch (error) {
+    console.warn('Страницы раздела «О школе» недоступны, показана локальная навигация.', error)
+    return fallback.pages
+  }
+}
+
+export async function loadSchoolPage(slug) {
+  const fallbackPage = fallback.pages.find((item) => item.slug === slug) || null
+  if (!client) return fallbackPage
+
+  try {
+    const items = await client.request(readItems('pages', {
+      filter: {
+        slug: { _eq: slug },
+        status: { _eq: 'published' },
+        navigation_group: { _eq: 'about' },
+      },
+      limit: 1,
+      fields: [
+        'id', 'slug', 'title', 'menu_title', 'excerpt', 'content', 'cover',
+        'date_updated', 'sections.id', 'sections.eyebrow', 'sections.title',
+        'sections.content', 'sections.image', 'sections.image_alt', 'sections.sort',
+      ],
+      deep: { sections: { _sort: ['sort'] } },
+    }))
+    return items[0] || null
+  } catch (error) {
+    console.warn(`Страница «${slug}» недоступна, показана локальная версия.`, error)
+    return fallbackPage
+  }
+}

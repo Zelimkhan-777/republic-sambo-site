@@ -1,12 +1,24 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { fallback } from '../data/fallback.js'
+import { loadSchoolPages } from '../services/directus.js'
 
 defineProps({ highVisibility: Boolean })
 const emit = defineEmits(['update:highVisibility'])
 const menuOpen = ref(false)
+const schoolMenu = ref(null)
+const schoolPages = ref(fallback.pages)
+
+onMounted(async () => {
+  schoolPages.value = await loadSchoolPages()
+})
 
 function closeMenu() {
   menuOpen.value = false
+}
+
+function closeSchoolMenu() {
+  if (schoolMenu.value) schoolMenu.value.open = false
 }
 </script>
 
@@ -34,11 +46,11 @@ function closeMenu() {
     <div class="nav-row">
       <nav class="container desktop-nav" aria-label="Основная навигация">
         <a href="/#top">Главная</a>
-        <details class="nav-dropdown"><summary>О школе</summary><div class="nav-dropdown-menu"><a href="/#information">Основные сведения об организации</a><a href="/#leadership">Руководство</a></div></details>
+        <details ref="schoolMenu" class="nav-dropdown"><summary>О школе</summary><div class="nav-dropdown-menu"><RouterLink v-for="page in schoolPages" :key="page.id" :to="`/about/${page.slug}`" @click="closeSchoolMenu">{{ page.menu_title || page.title }}</RouterLink></div></details>
         <RouterLink to="/documents">Документы</RouterLink><RouterLink to="/news">Новости</RouterLink><RouterLink to="/gallery">Галерея</RouterLink><a href="/#contacts">Контакты</a>
       </nav>
       <nav v-show="menuOpen" id="mobileNav" class="mobile-nav" aria-label="Мобильная навигация">
-        <a href="/#top" @click="closeMenu">Главная</a><span class="nav-group-label">О ШКОЛЕ</span><a class="subnav-link" href="/#information" @click="closeMenu">Основные сведения об организации</a><a class="subnav-link" href="/#leadership" @click="closeMenu">Руководство</a><RouterLink to="/documents" @click="closeMenu">Документы</RouterLink><RouterLink to="/news" @click="closeMenu">Новости</RouterLink><RouterLink to="/gallery" @click="closeMenu">Галерея</RouterLink><a href="/#contacts" @click="closeMenu">Контакты</a>
+        <a href="/#top" @click="closeMenu">Главная</a><span class="nav-group-label">О ШКОЛЕ</span><RouterLink v-for="page in schoolPages" :key="page.id" class="subnav-link" :to="`/about/${page.slug}`" @click="closeMenu">{{ page.menu_title || page.title }}</RouterLink><RouterLink to="/documents" @click="closeMenu">Документы</RouterLink><RouterLink to="/news" @click="closeMenu">Новости</RouterLink><RouterLink to="/gallery" @click="closeMenu">Галерея</RouterLink><a href="/#contacts" @click="closeMenu">Контакты</a>
       </nav>
     </div>
   </header>

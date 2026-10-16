@@ -20,7 +20,7 @@ export async function loadHomePage() {
       client.request(readSingleton('contacts')),
       client.request(readItems('leadership', { filter: { status: { _eq: 'published' } }, sort: ['sort', 'name'] })),
       client.request(readItems('news', { filter: { status: { _eq: 'published' } }, sort: ['-published_at'], limit: 3, fields: ['id', 'slug', 'category', 'title', 'published_at', 'cover'] })),
-      client.request(readItems('documents', { filter: { status: { _eq: 'published' } }, sort: ['sort', '-date'], limit: 20, fields: ['id', 'title', 'description', 'category', 'file'] })),
+      client.request(readItems('documents', { filter: { status: { _eq: 'published' } }, sort: ['sort', '-date'], limit: 20, fields: ['id', 'title', 'description', 'category', 'section.title', 'file'] })),
       client.request(readItems('gallery', { filter: { status: { _eq: 'published' } }, sort: ['sort', '-date'], limit: 8, fields: ['id', 'image', 'alt'] })),
     ])
 
@@ -86,5 +86,22 @@ export async function loadGallery() {
   } catch (error) {
     console.warn('Directus недоступен, показана демонстрационная галерея.', error)
     return fallback.gallery
+  }
+}
+
+export async function loadDocuments() {
+  if (!client) return fallback.documents
+
+  try {
+    const items = await client.request(readItems('documents', {
+      filter: { status: { _eq: 'published' } },
+      sort: ['section.sort', 'section.title', 'sort', '-date', 'title'],
+      limit: 500,
+      fields: ['id', 'title', 'description', 'category', 'section.id', 'section.title', 'section.sort', 'file', 'date'],
+    }))
+    return items.length ? items : fallback.documents
+  } catch (error) {
+    console.warn('Directus недоступен, показаны демонстрационные документы.', error)
+    return fallback.documents
   }
 }

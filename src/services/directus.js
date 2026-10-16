@@ -43,3 +43,48 @@ export async function loadNewsArticle(slug) {
   const items = await client.request(readItems('news', { filter: { slug: { _eq: slug }, status: { _eq: 'published' } }, limit: 1 }))
   return items[0] || null
 }
+
+export async function loadNewsPage(page = 1, limit = 6) {
+  const safePage = Math.max(1, Number(page) || 1)
+
+  if (!baseUrl) {
+    const start = (safePage - 1) * limit
+    return { items: fallback.news.slice(start, start + limit), total: fallback.news.length }
+  }
+
+  try {
+    const query = new URLSearchParams({
+      'filter[status][_eq]': 'published',
+      sort: '-published_at',
+      limit: String(limit),
+      page: String(safePage),
+      meta: 'filter_count',
+      fields: 'id,slug,category,title,published_at,cover',
+    })
+    const response = await fetch(`${baseUrl}/items/news?${query}`)
+    if (!response.ok) throw new Error(`Directus: ${response.status}`)
+    const result = await response.json()
+    return { items: result.data || [], total: result.meta?.filter_count || 0 }
+  } catch (error) {
+    console.warn('Directus недоступен, показаны демонстрационные новости.', error)
+    const start = (safePage - 1) * limit
+    return { items: fallback.news.slice(start, start + limit), total: fallback.news.length }
+  }
+}
+
+export async function loadGallery() {
+  if (!client) return fallback.gallery
+
+  try {
+    const items = await client.request(readItems('gallery', {
+      filter: { status: { _eq: 'published' } },
+      sort: ['sort', '-date'],
+      limit: 100,
+      fields: ['id', 'image', 'alt'],
+    }))
+    return items.length ? items : fallback.gallery
+  } catch (error) {
+    console.warn('Directus недоступен, показана демонстрационная галерея.', error)
+    return fallback.gallery
+  }
+}

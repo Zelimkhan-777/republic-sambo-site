@@ -35,10 +35,10 @@ function closeMenu() {
       <nav class="container desktop-nav" aria-label="Основная навигация">
         <a href="/#top">Главная</a>
         <details class="nav-dropdown"><summary>О школе</summary><div class="nav-dropdown-menu"><a href="/#information">Основные сведения об организации</a><a href="/#leadership">Руководство</a></div></details>
-        <a href="/#documents">Документы</a><a href="/#news">Новости</a><a href="/#gallery">Галерея</a><a href="/#contacts">Контакты</a>
+        <a href="/#documents">Документы</a><RouterLink to="/news">Новости</RouterLink><RouterLink to="/gallery">Галерея</RouterLink><a href="/#contacts">Контакты</a>
       </nav>
       <nav v-show="menuOpen" id="mobileNav" class="mobile-nav" aria-label="Мобильная навигация">
-        <a href="/#top" @click="closeMenu">Главная</a><span class="nav-group-label">О ШКОЛЕ</span><a class="subnav-link" href="/#information" @click="closeMenu">Основные сведения об организации</a><a class="subnav-link" href="/#leadership" @click="closeMenu">Руководство</a><a href="/#documents" @click="closeMenu">Документы</a><a href="/#news" @click="closeMenu">Новости</a><a href="/#gallery" @click="closeMenu">Галерея</a><a href="/#contacts" @click="closeMenu">Контакты</a>
+        <a href="/#top" @click="closeMenu">Главная</a><span class="nav-group-label">О ШКОЛЕ</span><a class="subnav-link" href="/#information" @click="closeMenu">Основные сведения об организации</a><a class="subnav-link" href="/#leadership" @click="closeMenu">Руководство</a><a href="/#documents" @click="closeMenu">Документы</a><RouterLink to="/news" @click="closeMenu">Новости</RouterLink><RouterLink to="/gallery" @click="closeMenu">Галерея</RouterLink><a href="/#contacts" @click="closeMenu">Контакты</a>
       </nav>
     </div>
   </header>

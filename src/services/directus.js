@@ -18,7 +18,7 @@ export async function loadHomePage() {
     const [about, contacts, contactPhones, leadership, news, documents, gallery] = await Promise.all([
       client.request(readSingleton('about')),
       client.request(readSingleton('contacts')),
-      client.request(readItems('contact_phones', { filter: { status: { _eq: 'published' } }, sort: ['sort', 'name'] })),
+      client.request(readItems('contact_people', { filter: { status: { _eq: 'published' } }, sort: ['sort', 'name'] })),
       client.request(readItems('leadership', { filter: { status: { _eq: 'published' } }, sort: ['sort', 'name'] })),
       client.request(readItems('news', { filter: { status: { _eq: 'published' } }, sort: ['-published_at'], limit: 3, fields: ['id', 'slug', 'category', 'title', 'published_at', 'cover'] })),
       client.request(readItems('documents', { filter: { status: { _eq: 'published' } }, sort: ['sort', '-date'], limit: 20, fields: ['id', 'title', 'description', 'category', 'section.title', 'file'] })),
@@ -160,7 +160,7 @@ export async function loadContactsPage() {
   try {
     const [contacts, phones] = await Promise.all([
       client.request(readSingleton('contacts')),
-      client.request(readItems('contact_phones', {
+      client.request(readItems('contact_people', {
         filter: { status: { _eq: 'published' } },
         sort: ['sort', 'name'],
       })),

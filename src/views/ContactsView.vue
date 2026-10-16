@@ -12,7 +12,7 @@ const phoneLink = (phone) => `tel:${phone.replace(/[^+\d]/g, '').replace(/^8/, '
 onMounted(async () => {
   contacts.value = await loadContactsPage()
   loading.value = false
-  document.title = 'Контакты — Республиканская школа самбо'
+  document.title = `${contacts.value.page_title || 'Контакты'} — Республиканская школа самбо`
 })
 
 function submitPreview() {
@@ -25,8 +25,8 @@ function submitPreview() {
     <section class="inner-hero contacts-page-hero">
       <div class="container">
         <span class="eyebrow light"><i></i>СВЯЗАТЬСЯ СО ШКОЛОЙ</span>
-        <h1>Контакты</h1>
-        <p>Телефоны администрации, электронная почта и режим работы Республиканской школы самбо.</p>
+        <h1>{{ contacts.page_title || 'Контакты' }}</h1>
+        <p>{{ contacts.page_description }}</p>
       </div>
     </section>
 
@@ -34,7 +34,7 @@ function submitPreview() {
       <div class="container contacts-page-grid">
         <div class="contacts-directory">
           <span class="section-kicker">КОНТАКТНЫЕ ТЕЛЕФОНЫ</span>
-          <h2>Администрация школы</h2>
+          <h2>{{ contacts.directory_title || 'Администрация школы' }}</h2>
 
           <div class="phone-directory">
             <article v-for="person in contacts.phones || []" :key="person.id" class="phone-card">

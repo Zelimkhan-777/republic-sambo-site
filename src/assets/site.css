@@ -32,10 +32,9 @@
 .direction-program-copy small{padding-left:12px;border-left:1px solid rgba(255,255,255,.32);font-size:7.5px;line-height:1.4;text-transform:uppercase;letter-spacing:.11em;color:#d6e4dc;text-align:left}
 .direction-program-copy h3{font-size:24px;line-height:1.2;letter-spacing:-.035em;font-weight:600;margin:0 0 11px}
 .direction-program-copy p{font-size:10px;line-height:1.65;color:#d4e0da;margin:0;max-width:330px}
-.site-header .brand-copy{flex-direction:row;align-items:center;gap:12px}
-.site-header .brand-divider{width:2px;height:28px;display:block;background:var(--red)}
+.site-header .brand-copy{align-items:flex-start;gap:5px}
 .site-header .brand-copy strong{font-size:19px}
-.site-header .brand-copy small{max-width:34px;font-size:8px;font-weight:700;line-height:1.25;letter-spacing:.12em;color:var(--green)}
+.site-header .brand-copy small{font-size:8px;font-weight:600;line-height:1;letter-spacing:.09em;color:#6e7c75;text-transform:uppercase}
 .section-link span{font-size:17px}
 
 /* Inner pages */
@@ -113,10 +112,9 @@ a.document-page-item:hover{color:var(--green);background:#f8faf7}
   .directions-grid{grid-template-columns:1fr}
   .direction-program,.direction-program:last-child{grid-column:auto;min-height:420px}
   .direction-program-copy{padding:25px 22px}
-  .site-header .brand-copy{display:grid;grid-template-columns:2px 1fr;column-gap:8px;row-gap:2px}
-  .site-header .brand-divider{grid-column:1;grid-row:1 / span 2;width:2px;height:100%}
+  .site-header .brand-copy{display:flex;gap:4px}
   .site-header .brand-copy strong{font-size:14px}
-  .site-header .brand-copy small{grid-column:2;grid-row:2;max-width:none;font-size:7px}
+  .site-header .brand-copy small{max-width:250px;font-size:6px;letter-spacing:.06em}
   .inner-hero{padding:62px 0 58px}
   .inner-hero h1{font-size:44px}
   .news-index-grid{grid-template-columns:1fr}

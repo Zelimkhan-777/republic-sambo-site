@@ -15,9 +15,10 @@ export async function loadHomePage() {
   if (!client) return fallback
 
   try {
-    const [about, contacts, leadership, news, documents, gallery] = await Promise.all([
+    const [about, contacts, contactPhones, leadership, news, documents, gallery] = await Promise.all([
       client.request(readSingleton('about')),
       client.request(readSingleton('contacts')),
+      client.request(readItems('contact_phones', { filter: { status: { _eq: 'published' } }, sort: ['sort', 'name'] })),
       client.request(readItems('leadership', { filter: { status: { _eq: 'published' } }, sort: ['sort', 'name'] })),
       client.request(readItems('news', { filter: { status: { _eq: 'published' } }, sort: ['-published_at'], limit: 3, fields: ['id', 'slug', 'category', 'title', 'published_at', 'cover'] })),
       client.request(readItems('documents', { filter: { status: { _eq: 'published' } }, sort: ['sort', '-date'], limit: 20, fields: ['id', 'title', 'description', 'category', 'section.title', 'file'] })),
@@ -26,7 +27,7 @@ export async function loadHomePage() {
 
     return {
       about: about || fallback.about,
-      contacts: contacts || fallback.contacts,
+      contacts: contacts ? { ...contacts, phones: contactPhones } : fallback.contacts,
       leadership,
       news: news.length ? news : fallback.news,
       documents: documents.length ? documents : fallback.documents,
@@ -150,5 +151,28 @@ export async function loadSchoolPage(slug) {
   } catch (error) {
     console.warn(`Страница «${slug}» недоступна, показана локальная версия.`, error)
     return fallbackPage
+  }
+}
+
+export async function loadContactsPage() {
+  if (!client) return fallback.contacts
+
+  try {
+    const [contacts, phones] = await Promise.all([
+      client.request(readSingleton('contacts')),
+      client.request(readItems('contact_phones', {
+        filter: { status: { _eq: 'published' } },
+        sort: ['sort', 'name'],
+      })),
+    ])
+
+    return {
+      ...fallback.contacts,
+      ...(contacts || {}),
+      phones: phones.length ? phones : fallback.contacts.phones,
+    }
+  } catch (error) {
+    console.warn('Контактные данные недоступны, показана локальная версия.', error)
+    return fallback.contacts
   }
 }

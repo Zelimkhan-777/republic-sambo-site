@@ -26,7 +26,7 @@ function closeMenu() {
     <div class="container masthead">
       <a class="brand" href="/#top" aria-label="Республиканская школа самбо — на главную">
         <span class="brand-mark" aria-hidden="true"><img src="/assets/minsport-chr-logo.png" alt="" /></span>
-        <span class="brand-copy"><strong>Республиканская школа самбо</strong><small>ГБУ ДО</small></span>
+        <span class="brand-copy"><small class="brand-status"><i></i>ГБУ ДО</small><strong>Республиканская школа самбо</strong></span>
       </a>
       <div class="masthead-actions"><a class="contact-button" href="/#contacts">Связаться со школой <b>↗</b></a></div>
       <button class="menu-toggle" type="button" :aria-expanded="menuOpen" aria-controls="mobileNav" :aria-label="menuOpen ? 'Закрыть меню' : 'Открыть меню'" @click="menuOpen = !menuOpen"><span></span><span></span><span></span></button>

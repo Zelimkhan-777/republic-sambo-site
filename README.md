@@ -21,7 +21,7 @@ npm run dev
 В `.env` укажите публичный адрес Directus:
 
 ```env
-VITE_DIRECTUS_URL=https://cms.example.ru
+VITE_DIRECTUS_URL=https://admin.republic-school.sambo-chr.ru
 ```
 
 Если адрес Directus не задан или CMS временно недоступна, сайт показывает демонстрационные данные из `src/data/fallback.js`.
@@ -37,3 +37,8 @@ npm run build
 ```
 
 Для Amvera подготовлены `Dockerfile`, `nginx.conf` и `amvera.yml`. Перед сборкой приложения добавьте переменную `VITE_DIRECTUS_URL` в окружение сборки.
+
+## Адреса сервисов
+
+- сайт школы: `https://republic-school.sambo-chr.ru`
+- Directus, API и файлы: `https://admin.republic-school.sambo-chr.ru`

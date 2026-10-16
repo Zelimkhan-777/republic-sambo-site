@@ -19,7 +19,7 @@ const directions = [
     title: 'Спортивное самбо',
     label: 'Соревновательная подготовка',
     text: 'Освоение техники, тактики ведения поединка и подготовка к участию в соревнованиях.',
-    image: '/assets/direction-sport-sambo.jpg',
+    image: '/assets/direction-sport-match.jpg',
   },
   {
     title: 'Технико-тактическая подготовка',
@@ -32,6 +32,12 @@ const directions = [
     label: 'Первые шаги в спорте',
     text: 'Развитие координации, силы и выносливости, знакомство с основами и ценностями самбо.',
     image: '/assets/direction-training.jpg',
+  },
+  {
+    title: 'Боевое самбо',
+    label: 'Ударная и борцовская техника',
+    text: 'Комплексная подготовка с изучением ударной техники, борьбы, защиты и правил безопасного поединка.',
+    image: '/assets/direction-combat-sambo.jpg',
   },
 ]
 </script>

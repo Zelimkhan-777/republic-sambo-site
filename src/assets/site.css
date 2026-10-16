@@ -20,7 +20,7 @@
 
 /* Training directions */
 .directions-section{background:var(--paper)}
-.directions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.directions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .direction-program{position:relative;min-height:470px;overflow:hidden;border-radius:12px;background:var(--deep);color:#fff}
 .direction-program>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
 .direction-program:nth-child(3)>img{object-position:center 35%}
@@ -98,7 +98,7 @@ a.document-page-item:hover{color:var(--green);background:#f8faf7}
 
 @media(max-width:960px){
   .directions-grid{grid-template-columns:1fr 1fr}
-  .direction-program:last-child{grid-column:span 2;min-height:400px}
+  .direction-program{min-height:430px}
   .news-index-grid{grid-template-columns:1fr 1fr}
   .gallery-page-grid{grid-template-columns:1fr 1fr;grid-auto-rows:240px}
   .document-category{grid-template-columns:1fr;gap:24px}

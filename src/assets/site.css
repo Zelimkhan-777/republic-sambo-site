@@ -212,3 +212,47 @@ a.document-page-item:hover{color:var(--green);background:#f8faf7}
 
 @media(max-width:960px){.contacts-page-grid{grid-template-columns:1fr;gap:48px}.feedback-panel{position:static}.contact-facts{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.contacts-page-grid{gap:38px}.phone-card{padding-right:0}.phone-card h3{font-size:15px}.phone-card a{font-size:18px}.contact-facts{grid-template-columns:1fr}.feedback-panel{padding:29px 22px}.feedback-page-form{grid-template-columns:1fr}.feedback-page-form label{grid-column:1}.feedback-page-form .feedback-message,.feedback-page-form .feedback-consent,.feedback-page-form button,.form-preview-notice{grid-column:1}.contacts-directory>h2,.feedback-panel>h2{font-size:31px}}
+
+/* Header controls */
+.vision-toggle{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:5px 9px;border:1px solid transparent;border-radius:4px;background:transparent;color:inherit;cursor:pointer;font-size:11px;font-weight:600}
+.vision-toggle:hover{border-color:rgba(255,255,255,.55)}
+.vision-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;flex:0 0 auto}
+.nav-dropdown>summary{display:inline-flex;align-items:center;gap:8px}
+.nav-dropdown>summary::after{display:none!important;content:none!important}
+.nav-dropdown-chevron{width:11px;height:8px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s ease;flex:0 0 auto}
+.nav-dropdown[open] .nav-dropdown-chevron{transform:rotate(180deg)}
+
+/* Version for visually impaired visitors */
+.high-visibility{font-size:18px;--green:#000;--deep:#000;--dark:#000;--mint:#fff;--accent:#ffe600;--paper:#fff;--white:#fff;--ink:#000;--muted:#111;--line:#000;--red:#000;background:#fff;color:#000}
+.high-visibility :is(p,a,button,input,select,textarea,label,li,td,th,time,figcaption){font-size:1em!important;line-height:1.65}
+.high-visibility :is(small,.eyebrow,.section-kicker,.news-feature-copy>span,.news-list span,.news-index-copy>span){font-size:.82em!important;line-height:1.5}
+.high-visibility :is(.topbar,.documents-section,.site-footer,.inner-hero,.feedback-panel){background:#000;color:#fff}
+.high-visibility :is(.hero-image,.about-photo img,.news-layout img,.directions-grid img,.gallery-grid img,.gallery-page-grid img){filter:grayscale(1) contrast(1.12)}
+.high-visibility :is(.service-card,.about-grid,.direction-card,.direction-program,.news-feature,.news-index-card,.organization-card,.document-category,.contact-facts article,.content-page-nav,.phone-directory){border-color:#000;border-width:2px;box-shadow:none}
+.high-visibility :is(.section-heading-row>p,.service-card p,.direction-card p,.organization-card p,.content-page-article .article-body,.contact-facts p){color:#000}
+.high-visibility :is(.hero-overlay,.direction-program-shade){background:linear-gradient(0deg,rgba(0,0,0,.96),rgba(0,0,0,.12))}
+.high-visibility .vision-toggle{background:#ffe600;color:#000;border-color:#ffe600}
+.high-visibility :focus-visible{outline:4px solid #ffe600;outline-offset:4px}
+.high-visibility :is(.nav-row,.document-page-list,.document-page-item,.contact-panel,.contact-panel>div,.phone-card,.listing-top){border-color:#000}
+.high-visibility .desktop-nav a:hover,.high-visibility .nav-dropdown summary:hover{color:#000;text-decoration:underline;text-decoration-thickness:3px}
+.high-visibility .direction-program{min-height:530px}
+.high-visibility .news-list>a{min-height:205px}
+.high-visibility .brand-copy small{color:#111}
+.high-visibility .site-footer .brand-copy small{color:#fff}
+.high-visibility .document-list small,.high-visibility .documents-intro>p,.high-visibility .documents-intro>small,.high-visibility .inner-hero p,.high-visibility .feedback-panel>p,.high-visibility .feedback-page-form label>span{color:#fff}
+.high-visibility .button-light,.high-visibility .feedback-page-form button{background:#ffe600;color:#000}
+.high-visibility .topbar{height:auto;min-height:54px}
+.high-visibility .topbar-inner{min-height:54px}
+
+@media(max-width:620px){
+  .vision-toggle{font-size:10px}
+  .vision-toggle svg{width:18px;height:18px}
+  .high-visibility{font-size:16px}
+  .high-visibility .brand-copy small{display:none}
+  .high-visibility .direction-program{min-height:500px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}

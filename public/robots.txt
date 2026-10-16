@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: republic-school.sambo-chr.ru
+Sitemap: https://republic-school.sambo-chr.ru/sitemap.xml

@@ -21,6 +21,7 @@ npm run dev
 В `.env` укажите публичный адрес Directus:
 
 ```env
+VITE_SITE_URL=https://republic-school.sambo-chr.ru
 VITE_DIRECTUS_URL=https://admin.republic-school.sambo-chr.ru
 ```
 
@@ -42,3 +43,9 @@ npm run build
 
 - сайт школы: `https://republic-school.sambo-chr.ru`
 - Directus, API и файлы: `https://admin.republic-school.sambo-chr.ru`
+
+## SEO
+
+Для каждого маршрута настроены уникальные заголовки, описания, canonical URL и Open Graph. Главная страница содержит микроразметку образовательной и спортивной организации, а новости получают микроразметку `NewsArticle` из Directus.
+
+Перед сборкой `scripts/generate-sitemap.js` создаёт `sitemap.xml`. Если Directus доступен во время сборки, в карту автоматически добавляются опубликованные новости и страницы раздела «О школе»; иначе используется базовый список маршрутов. `robots.txt` уже указывает поисковым системам адрес карты сайта.

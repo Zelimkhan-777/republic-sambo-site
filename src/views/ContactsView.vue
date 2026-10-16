@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { fallback } from '../data/fallback.js'
 import { loadContactsPage } from '../services/directus.js'
+import { applySeo, conciseDescription } from '../seo.js'
 
 const contacts = ref(fallback.contacts)
 const loading = ref(true)
@@ -12,7 +13,14 @@ const phoneLink = (phone) => `tel:${phone.replace(/[^+\d]/g, '').replace(/^8/, '
 onMounted(async () => {
   contacts.value = await loadContactsPage()
   loading.value = false
-  document.title = `${contacts.value.page_title || 'Контакты'} — Республиканская школа самбо`
+  applySeo({
+    title: 'Контакты школы самбо в Шали | Республиканская школа самбо',
+    description: conciseDescription(
+      contacts.value.page_description,
+      'Телефоны администрации, электронная почта и режим работы ГБУ ДО «Республиканская школа самбо» в Шали.',
+    ),
+    path: '/contacts',
+  })
 })
 
 function submitPreview() {

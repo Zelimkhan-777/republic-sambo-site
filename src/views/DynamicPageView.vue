@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { assetUrl, loadSchoolPage, loadSchoolPages } from '../services/directus.js'
+import { applySeo, conciseDescription, siteUrl } from '../seo.js'
 
 const route = useRoute()
 const page = ref(null)
@@ -21,9 +22,37 @@ async function loadPage(slug) {
     ])
     page.value = currentPage
     pages.value = menuPages
-    document.title = currentPage
-      ? `${currentPage.title} — Республиканская школа самбо`
-      : 'Страница не найдена — Республиканская школа самбо'
+    if (currentPage) {
+      const description = conciseDescription(
+        currentPage.excerpt || currentPage.content,
+        'Сведения о ГБУ ДО «Республиканская школа самбо».',
+      )
+      applySeo({
+        title: `${currentPage.title} | Республиканская школа самбо`,
+        description,
+        path: `/about/${slug}`,
+        image: currentPage.cover ? assetUrl(currentPage.cover) : '/assets/fsk-shali-building.jpg',
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: currentPage.title,
+          description,
+          url: `${siteUrl}/about/${slug}`,
+          isPartOf: {
+            '@type': 'WebSite',
+            name: 'ГБУ ДО «Республиканская школа самбо»',
+            url: `${siteUrl}/`,
+          },
+        },
+      })
+    } else {
+      applySeo({
+        title: 'Страница не найдена | Республиканская школа самбо',
+        description: 'Запрашиваемая страница не найдена.',
+        path: `/about/${slug}`,
+        robots: 'noindex, follow',
+      })
+    }
   } finally {
     loading.value = false
   }

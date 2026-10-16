@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { assetUrl, loadNewsPage } from '../services/directus.js'
+import { applySeo } from '../seo.js'
 
 const route = useRoute()
 const router = useRouter()
@@ -20,6 +21,14 @@ async function fetchPage() {
   items.value = result.items
   total.value = result.total
   loading.value = false
+
+  const pageSuffix = currentPage.value > 1 ? ` — страница ${currentPage.value}` : ''
+  applySeo({
+    title: `Новости школы самбо${pageSuffix} | Республиканская школа самбо`,
+    description: `Новости школы самбо в Шали: соревнования, сборы и достижения спортсменов${pageSuffix.toLocaleLowerCase('ru-RU')}.`,
+    path: currentPage.value > 1 ? `/news?page=${currentPage.value}` : '/news',
+    image: '/assets/shali-training.jpg',
+  })
 
   if (currentPage.value > pageCount.value) {
     router.replace({ name: 'news', query: pageCount.value > 1 ? { page: pageCount.value } : {} })

@@ -163,3 +163,10 @@ a.document-page-item:hover{color:var(--green);background:#f8faf7}
 
 @media(max-width:960px){.content-page-layout{grid-template-columns:210px minmax(0,1fr);gap:42px}}
 @media(max-width:720px){.content-page-layout{grid-template-columns:1fr;gap:38px}.content-page-nav{position:static}.content-page-article .article-body h2,.content-page-block>h2{font-size:26px}.content-page-article .article-body{font-size:14px}.content-page-article .article-body table{display:block;overflow-x:auto}.organization-card{padding:24px 58px 24px 24px}}
+
+/* News article proportions */
+.article-page{padding-top:36px}
+.article-page .eyebrow{margin-top:24px}
+.article-page h1{font-size:clamp(31px,4.2vw,52px)}
+
+@media(max-width:620px){.article-page{padding-top:28px}.article-page .eyebrow{margin-top:20px}.article-page h1{font-size:34px}}
